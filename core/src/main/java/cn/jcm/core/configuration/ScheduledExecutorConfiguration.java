@@ -14,9 +14,8 @@ import java.util.concurrent.ScheduledExecutorService;
  */
 @Configuration
 public class ScheduledExecutorConfiguration {
-    @Bean
-    public ScheduledExecutorService globalScheduledExecutorService() {
-        return Executors.newScheduledThreadPool(Integer.valueOf(PropertiesUtil.getPropertyValue
-                ("taskScheduledThreadpool")));
-    }
+	@Bean
+	public ScheduledExecutorService globalScheduledExecutorService() {
+		return Executors.newScheduledThreadPool( Integer.valueOf( PropertiesUtil.getPropertyValue( "taskScheduledThreadpool" ) ) );
+	}
 }

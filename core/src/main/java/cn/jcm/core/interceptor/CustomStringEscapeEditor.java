@@ -14,39 +14,39 @@ import java.beans.PropertyEditorSupport;
  * @version v1.0
  */
 public class CustomStringEscapeEditor extends PropertyEditorSupport {
-    private boolean escape;
+	private boolean escape;
 
-    /**
-     * 创建一个新的实例 StringEscapeEditor.
-     */
-    public CustomStringEscapeEditor() {
-        super();
-    }
+	/**
+	 * 创建一个新的实例 StringEscapeEditor.
+	 */
+	public CustomStringEscapeEditor() {
+		super();
+	}
 
-    /**
-     * 创建一个新的实例 StringEscapeEditor.
-     */
-    public CustomStringEscapeEditor(boolean escape) {
-        super();
-        this.escape = escape;
-    }
+	/**
+	 * 创建一个新的实例 StringEscapeEditor.
+	 */
+	public CustomStringEscapeEditor( boolean escape ) {
+		super();
+		this.escape = escape;
+	}
 
-    @Override
-    public void setAsText(String text) {
-        if (StringUtils.isEmpty(text)) {
-            setValue(text);
-        } else {
-            String value = text;
-            if (escape) {
-                value = StringEscapeUtils.escapeHtml4(value);
-            }
-            setValue(value);
-        }
-    }
+	@Override
+	public String getAsText() {
+		Object value = getValue();
+		return value != null ? value.toString() : "";
+	}
 
-    @Override
-    public String getAsText() {
-        Object value = getValue();
-        return value != null ? value.toString() : "";
-    }
+	@Override
+	public void setAsText( String text ) {
+		if ( StringUtils.isEmpty( text ) ) {
+			setValue( text );
+		} else {
+			String value = text;
+			if ( escape ) {
+				value = StringEscapeUtils.escapeHtml4( value );
+			}
+			setValue( value );
+		}
+	}
 }

@@ -16,37 +16,33 @@ import java.security.cert.X509Certificate;
  */
 public class CustomClientHttpRequestFactory extends SimpleClientHttpRequestFactory {
 
-    @Override
-    protected void prepareConnection(HttpURLConnection connection, String httpMethod) {
-        try {
-            if (!(connection instanceof HttpsURLConnection)) {
-                super.prepareConnection(connection, httpMethod);
-            } else {
-                HttpsURLConnection httpsConnection = (HttpsURLConnection) connection;
-                SSLContext sslContext = SSLContext.getInstance("SSL");
-                sslContext.init(null, new TrustManager[]{
-                        new X509TrustManager() {
-                            public X509Certificate[] getAcceptedIssuers() {
-                                return new X509Certificate[]{};
-                            }
+	@Override
+	protected void prepareConnection( HttpURLConnection connection, String httpMethod ) {
+		try {
+			if ( !( connection instanceof HttpsURLConnection ) ) {
+				super.prepareConnection( connection, httpMethod );
+			} else {
+				HttpsURLConnection httpsConnection = ( HttpsURLConnection ) connection;
+				SSLContext         sslContext      = SSLContext.getInstance( "SSL" );
+				sslContext.init( null, new TrustManager[]{ new X509TrustManager() {
+					public X509Certificate[] getAcceptedIssuers() {
+						return new X509Certificate[]{ };
+					}
 
-                            public void checkClientTrusted(X509Certificate[] certs, String
-                                    authType) {
-                            }
+					public void checkClientTrusted( X509Certificate[] certs, String authType ) {
+					}
 
-                            public void checkServerTrusted(X509Certificate[] certs, String
-                                    authType) {
-                            }
-                        }
-                }, new java.security.SecureRandom());
-                httpsConnection.setSSLSocketFactory(sslContext.getSocketFactory());
+					public void checkServerTrusted( X509Certificate[] certs, String authType ) {
+					}
+				} }, new java.security.SecureRandom() );
+				httpsConnection.setSSLSocketFactory( sslContext.getSocketFactory() );
 
-                httpsConnection.setHostnameVerifier((hostname, session) -> true);
+				httpsConnection.setHostnameVerifier( ( hostname, session ) -> true );
 
-                super.prepareConnection(httpsConnection, httpMethod);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+				super.prepareConnection( httpsConnection, httpMethod );
+			}
+		} catch ( Exception e ) {
+			e.printStackTrace();
+		}
+	}
 }

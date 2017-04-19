@@ -15,8 +15,8 @@ public class UserServiceImpl implements UserService {
 
 
 	@Override
-	public User findUserById(String id) {
-		return userDao.findUserById(id);
+	public User findUserById( String id ) {
+		return userDao.findUserById( id );
 	}
 
 	@Override
@@ -25,17 +25,17 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public int saveUser(User user) {
-		return userDao.saveUser(user);
+	public int saveUser( User user ) {
+		return userDao.saveUser( user );
 	}
 
 	@Override
-	public int updateUser(User user) {
-		return userDao.updateUser(user);
+	public int updateUser( User user ) {
+		return userDao.updateUser( user );
 	}
 
 	@Override
-	public int deleteUser(String id) {
-		return userDao.deleteUser(id);
+	public int deleteUser( String id ) {
+		return userDao.deleteUser( id );
 	}
 }

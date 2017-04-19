@@ -26,49 +26,45 @@ import java.util.List;
 @Configuration
 public class RestTemplateConfiguration {
 
-    private static final int DEFULT_TIMEOUT = 60 * 1000;
+	private static final int DEFULT_TIMEOUT = 60 * 1000;
 
-    private ClientHttpRequestFactory globalClientHttpRequestFactory() {
-        CustomClientHttpRequestFactory simpleClientHttpRequestFactory = new
-                CustomClientHttpRequestFactory();
-        simpleClientHttpRequestFactory.setReadTimeout(DEFULT_TIMEOUT);
-        simpleClientHttpRequestFactory.setConnectTimeout(DEFULT_TIMEOUT);
-        return simpleClientHttpRequestFactory;
-    }
+	private ClientHttpRequestFactory globalClientHttpRequestFactory() {
+		CustomClientHttpRequestFactory simpleClientHttpRequestFactory = new CustomClientHttpRequestFactory();
+		simpleClientHttpRequestFactory.setReadTimeout( DEFULT_TIMEOUT );
+		simpleClientHttpRequestFactory.setConnectTimeout( DEFULT_TIMEOUT );
+		return simpleClientHttpRequestFactory;
+	}
 
-    @Bean
-    public RestTemplate globalRestTemplate() {
-        RestTemplate restTemplate = new RestTemplate();
-        restTemplate.setRequestFactory(globalClientHttpRequestFactory());
+	@Bean
+	public RestTemplate globalRestTemplate() {
+		RestTemplate restTemplate = new RestTemplate();
+		restTemplate.setRequestFactory( globalClientHttpRequestFactory() );
 
-        List<HttpMessageConverter<?>> defaultHttpMessageConverters = restTemplate
-                .getMessageConverters();
-        List<HttpMessageConverter<?>> newHttpMessageConverters = new
-                ArrayList<HttpMessageConverter<?>>();
-        newHttpMessageConverters.addAll(defaultHttpMessageConverters);
-        newHttpMessageConverters.add(new TextMappingJackson2HttpMessageConverter());
-        restTemplate.setMessageConverters(newHttpMessageConverters);
+		List<HttpMessageConverter<?>> defaultHttpMessageConverters = restTemplate.getMessageConverters();
+		List<HttpMessageConverter<?>> newHttpMessageConverters = new ArrayList<HttpMessageConverter<?>>();
+		newHttpMessageConverters.addAll( defaultHttpMessageConverters );
+		newHttpMessageConverters.add( new TextMappingJackson2HttpMessageConverter() );
+		restTemplate.setMessageConverters( newHttpMessageConverters );
 
-        List<ClientHttpRequestInterceptor> clientHttpRequestInterceptors = new
-                ArrayList<ClientHttpRequestInterceptor>();
-        clientHttpRequestInterceptors.add(new HttpRequestLoggerInterceptor());
-        restTemplate.setInterceptors(clientHttpRequestInterceptors);
+		List<ClientHttpRequestInterceptor> clientHttpRequestInterceptors = new ArrayList<ClientHttpRequestInterceptor>();
+		clientHttpRequestInterceptors.add( new HttpRequestLoggerInterceptor() );
+		restTemplate.setInterceptors( clientHttpRequestInterceptors );
 
-        restTemplate.setErrorHandler(new ResponseErrorHandler() {
-            @Override
-            public boolean hasError(ClientHttpResponse response) throws IOException {
-                return new DefaultResponseErrorHandler().hasError(response);
-            }
+		restTemplate.setErrorHandler( new ResponseErrorHandler() {
+			@Override
+			public boolean hasError( ClientHttpResponse response ) throws IOException {
+				return new DefaultResponseErrorHandler().hasError( response );
+			}
 
-            @Override
-            public void handleError(ClientHttpResponse response) throws IOException {
-                if (response.getStatusCode() != HttpStatus.NOT_FOUND) {
-                    new DefaultResponseErrorHandler().handleError(response);
-                }
-            }
-        });
-        return restTemplate;
-    }
+			@Override
+			public void handleError( ClientHttpResponse response ) throws IOException {
+				if ( response.getStatusCode() != HttpStatus.NOT_FOUND ) {
+					new DefaultResponseErrorHandler().handleError( response );
+				}
+			}
+		} );
+		return restTemplate;
+	}
 
 
 }

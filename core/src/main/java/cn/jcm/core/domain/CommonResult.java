@@ -11,7 +11,7 @@ public class CommonResult {
 	public CommonResult() {
 	}
 
-	public CommonResult(String message) {
+	public CommonResult( String message ) {
 		this.message = message;
 	}
 }

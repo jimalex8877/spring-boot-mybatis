@@ -15,27 +15,27 @@ import javax.servlet.http.HttpServletRequest;
 
 @Log4j2
 @Controller
-@RequestMapping("/")
+@RequestMapping( "/" )
 public class IndexController extends BaseController {
 
-    @GetMapping
-    public String toIndex(ModelMap modelMap) {
-        modelMap.put("result", "changming.jiang");
-        return "index";
-    }
+	@GetMapping
+	public String toIndex( ModelMap modelMap ) {
+		modelMap.put( "result", "changming.jiang" );
+		return "index";
+	}
 
-    @GetMapping("/platform")
-    @ResponseBody
-    public CommonResult platform(HttpServletRequest request) {
-        CommonResult result = new CommonResult();
-        result.setMessage("获取用户浏览设备成功!");
-        Device device = DeviceUtils.getCurrentDevice(request);
-        if(device.isMobile())
-            result.setData("手机");
-        if(device.isNormal())
-            result.setData("台式");
-        if(device.isTablet())
-            result.setData("平板");
-        return result;
-    }
+	@GetMapping( "/platform" )
+	@ResponseBody
+	public CommonResult platform( HttpServletRequest request ) {
+		CommonResult result = new CommonResult();
+		result.setMessage( "获取用户浏览设备成功!" );
+		Device device = DeviceUtils.getCurrentDevice( request );
+		if ( device.isMobile() )
+			result.setData( "手机" );
+		if ( device.isNormal() )
+			result.setData( "台式" );
+		if ( device.isTablet() )
+			result.setData( "平板" );
+		return result;
+	}
 }

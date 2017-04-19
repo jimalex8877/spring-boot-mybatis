@@ -10,9 +10,10 @@ import javax.sql.DataSource;
 @Configuration
 public class DataBaseConfiguration {
 	@Bean
-	@ConfigurationProperties(prefix = "spring.datasource")
+	@ConfigurationProperties( prefix = "spring.datasource" )
 	public DataSource druidDataSource() {
 		DruidDataSource druidDataSource = new DruidDataSource();
+
 		return druidDataSource;
 	}
 }

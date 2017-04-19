@@ -7,7 +7,7 @@
 			<PatternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} %-5level %-48.48c %-3L - %msg%xEx%n"/>
 		</Console>
 		<RollingFile name="RollingFile" fileName="../logs/spring-boot-mybatis/system.log"
-		             filePattern="../logs/spring-boot-mybatis/$${date:yyyy-MM}/system-%d{MM-dd-yyyy}-%i.log.gz">
+					 filePattern="../logs/spring-boot-mybatis/$${date:yyyy-MM}/system-%d{MM-dd-yyyy}-%i.log.gz">
 			<PatternLayout pattern="%d{yyy-MM-dd HH:mm:ss z} %-5level %-48.48c %-3L - %msg%xEx%n"/>
 			<SizeBasedTriggeringPolicy size="100 MB"/>
 		</RollingFile>

@@ -12,15 +12,15 @@ import org.springframework.context.annotation.ComponentScan;
  * @author changming.jiang
  */
 @SpringBootApplication
-@ComponentScan("cn.jcm.*")
+@ComponentScan( "cn.jcm.*" )
 public class JcmSystemApplication extends SpringBootServletInitializer {
 
-	@Override
-	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-		return application.sources(JcmSystemApplication.class);
+	public static void main( String[] args ) {
+		SpringApplication.run( JcmSystemApplication.class, args );
 	}
 
-	public static void main(String[] args) {
-		SpringApplication.run(JcmSystemApplication.class, args);
+	@Override
+	protected SpringApplicationBuilder configure( SpringApplicationBuilder application ) {
+		return application.sources( JcmSystemApplication.class );
 	}
 }
